@@ -1,19 +1,4 @@
-# ============================================================
-# AI RESUME BUILDER & JOB RECOMMENDATION SYSTEM
-# Google Colab Version
-# ============================================================
 
-
-# ============================================================
-# 1. INSTALL REQUIRED LIBRARIES
-# ============================================================
-
-
-
-
-# ============================================================
-# 2. IMPORT LIBRARIES
-# ============================================================
 
 import os
 import pandas as pd
@@ -23,20 +8,12 @@ from getpass import getpass
 from groq import Groq
 
 
-# ============================================================
-# 3. ENTER GROQ API KEY
-# ============================================================
-
 os.environ["GROQ_API_KEY"] = getpass("Enter your Groq API Key: ")
 
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
 )
 
-
-# ============================================================
-# 4. TEST GROQ API
-# ============================================================
 
 response = client.chat.completions.create(
     model="openai/gpt-oss-120b",
@@ -55,10 +32,6 @@ response = client.chat.completions.create(
 
 print(response.choices[0].message.content)
 
-
-# ============================================================
-# 5. REUSABLE GROQ FUNCTION
-# ============================================================
 
 def ask_groq(
     prompt,
@@ -82,21 +55,11 @@ def ask_groq(
 
     return response.choices[0].message.content
 
-
-# ============================================================
-# 6. TEST GROQ FUNCTION
-# ============================================================
-
 answer = ask_groq(
     "Create a professional summary for a Python developer with 2 years of experience."
 )
 
 print(answer)
-
-
-# ============================================================
-# 7. SAMPLE USER PROFILE
-# ============================================================
 
 user_profile = {
     "name": "Fatima Noor",
@@ -119,11 +82,6 @@ user_profile = {
     "years_experience": 1,
     "preferred_location": "Remote"
 }
-
-
-# ============================================================
-# 8. RESUME GENERATOR
-# ============================================================
 
 def generate_resume(profile):
 
@@ -185,19 +143,9 @@ Use clean Markdown formatting.
         system_prompt="You are an expert professional resume writer and ATS optimization specialist."
     )
 
-
-# ============================================================
-# 9. TEST RESUME GENERATOR
-# ============================================================
-
 test_resume = generate_resume(user_profile)
 
 print(test_resume)
-
-
-# ============================================================
-# 10. CREATE SAMPLE JOB DATASET
-# ============================================================
 
 jobs = pd.DataFrame([
     {
@@ -225,12 +173,6 @@ jobs = pd.DataFrame([
         "description": "Machine learning model development"
     }
 ])
-
-
-# ============================================================
-# 11. SAVE JOB DATASET
-# ============================================================
-
 jobs.to_csv(
     "jobs.csv",
     index=False
